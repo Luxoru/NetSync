@@ -9,7 +9,6 @@ import java.nio.channels.DatagramChannel;
 
 public class PacketReader extends Thread{
 
-    private final int port;
     private final DatagramChannel channel;
     private final ByteBuffer buffer;
     private final long delay;
@@ -17,7 +16,6 @@ public class PacketReader extends Thread{
 
     public PacketReader(int port, long sleepDelay, PacketHandler handler){
         this.handler = handler;
-        this.port = port;
         this.delay = sleepDelay;
         try{
             channel = DatagramChannel.open();
@@ -34,7 +32,7 @@ public class PacketReader extends Thread{
     @Override
     public void run() {
 
-        while (true){
+        while (!isInterrupted()){
             buffer.clear();
             try {
                 InetSocketAddress socketAddress = (InetSocketAddress) channel.receive(buffer);

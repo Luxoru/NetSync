@@ -39,7 +39,7 @@ public class PacketWriter extends Thread{
     @SneakyThrows
     @Override
     public void run() {
-        while (true){
+        while (!isInterrupted()){
             if(packets.isEmpty()) sleep(delay);
 
             Packet msg = packets.poll();

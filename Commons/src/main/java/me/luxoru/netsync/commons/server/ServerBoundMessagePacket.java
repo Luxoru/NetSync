@@ -1,8 +1,7 @@
-package me.luxoru.netsync.commons.server.connection;
+package me.luxoru.netsync.commons.server;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.luxoru.netsync.commons.server.ServerBoundPacket;
 import me.luxoru.netsync.commons.utils.ArrayUtils;
 
 @Getter

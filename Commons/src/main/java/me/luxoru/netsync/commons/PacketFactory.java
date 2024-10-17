@@ -3,7 +3,7 @@ package me.luxoru.netsync.commons;
 
 
 import com.google.common.base.Preconditions;
-import me.luxoru.netsync.commons.server.connection.ServerBoundMessagePacket;
+import me.luxoru.netsync.commons.server.ServerBoundMessagePacket;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

@@ -1,11 +1,8 @@
 package me.luxoru.netsync.client;
 
 import me.luxoru.netsync.commons.PacketWriter;
-import me.luxoru.netsync.commons.server.connection.ServerBoundMessagePacket;
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.nio.ByteBuffer;
-import java.nio.channels.DatagramChannel;
+import me.luxoru.netsync.commons.server.ServerBoundMessagePacket;
+
 import java.util.Scanner;
 
 public class Client {
@@ -21,9 +18,11 @@ public class Client {
 
         PacketWriter writer = new PacketWriter(host, port, 100);
         writer.start();
-        ServerBoundMessagePacket helloServer = new ServerBoundMessagePacket("HELLO SERVER", 101);
-        System.out.println("PACKET ID: "+helloServer.getPacketID());
-        writer.sendPacket(helloServer);
+
+        for(int i =0; i<1000;i++){
+            ServerBoundMessagePacket helloServer = new ServerBoundMessagePacket("HELLO SERVER", i);
+            writer.sendPacket(helloServer);
+        }
 
     }
 
