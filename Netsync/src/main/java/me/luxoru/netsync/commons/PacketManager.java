@@ -23,8 +23,8 @@ import java.util.Queue;
 public abstract class PacketManager extends Thread{
 
     protected final String host;
-    protected DatagramChannel channel;
-    private ByteBuffer buffer;
+    protected final DatagramChannel channel;
+    private final ByteBuffer buffer;
     private final long delay;
     protected final PacketHandler handler;
     public final Queue<PacketSendable> packetsToSend;
@@ -76,7 +76,6 @@ public abstract class PacketManager extends Thread{
                 boolean shouldRead = shouldRead(remoteAddress);//A client will need to detect whether this remote address is coming from the server.
 
                 if(!shouldRead){
-                    System.out.println("NOT READING PACKET!");
                     attemptToWritePackets();
                     continue;
                 }
@@ -87,11 +86,7 @@ public abstract class PacketManager extends Thread{
 ;
                 buffer.get(bytes);
                 Packet packet = PacketBuilder.readBytes(bytes);
-                handler.handle(packet);
-
-                /**
-                 * Write any packets we need to write
-                 */
+                handler.handle(packet, remoteAddress);
 
                 attemptToWritePackets();
 
@@ -117,8 +112,6 @@ public abstract class PacketManager extends Thread{
 
         Packet packet = packetSendable.getPacket();
 
-        System.out.println("GOING TO: "+packetSendable.getSocketAddress());
-
         try {
             channel.send(ByteBuffer.wrap(packet.toBytes()), packetSendable.getSocketAddress());
         } catch (IOException e) {
@@ -126,16 +119,6 @@ public abstract class PacketManager extends Thread{
         }
 
     }
-
-
-    public InetSocketAddress getLocalAddress(){
-        try {
-            return (InetSocketAddress) channel.getLocalAddress();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 
     protected abstract boolean shouldRead(InetSocketAddress remoteAddress);
 }

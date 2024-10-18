@@ -1,10 +1,9 @@
-package me.luxoru.netsync.commons.protocol;
+package me.luxoru.netsync.server.packet.protocol;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @AllArgsConstructor

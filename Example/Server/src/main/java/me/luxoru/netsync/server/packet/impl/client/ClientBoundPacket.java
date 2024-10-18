@@ -1,8 +1,8 @@
-package me.luxoru.netsync.commons.client;
+package me.luxoru.netsync.server.packet.impl.client;
 
 import lombok.NoArgsConstructor;
 import me.luxoru.netsync.commons.Packet;
-import me.luxoru.netsync.commons.protocol.ProtocolVersion;
+import me.luxoru.netsync.server.packet.protocol.ProtocolVersion;
 
 @NoArgsConstructor
 public abstract class ClientBoundPacket extends Packet {

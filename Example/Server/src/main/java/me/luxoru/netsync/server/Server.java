@@ -1,15 +1,21 @@
 package me.luxoru.netsync.server;
 
+import lombok.Getter;
 import lombok.SneakyThrows;
+import me.luxoru.netsync.commons.Packet;
+import me.luxoru.netsync.commons.PacketFactory;
 import me.luxoru.netsync.commons.PacketManager;
 import me.luxoru.netsync.server.packet.ServerPacketManager;
 import me.luxoru.netsync.server.packet.handler.ServerBoundPacketHandler;
 
 import java.net.InetAddress;
+import java.util.Map;
 
 public class Server {
 
     private final ServerInfo serverInfo;
+    @Getter
+    private final ServerPacketManager serverPacketManager;
 
     @SneakyThrows
     public Server(int port){
@@ -17,7 +23,10 @@ public class Server {
         String host = InetAddress.getLocalHost().getHostAddress();
         this.serverInfo = new ServerInfo(host, port);
 
-        new ServerPacketManager(port, 20, new ServerBoundPacketHandler(this)).start();
+        serverPacketManager = new ServerPacketManager(port, 20, new ServerBoundPacketHandler(this));
+        serverPacketManager.start();
+        Map<Integer, Class<? extends Packet>> packets = ServerPacketManager.getPackets();
+        PacketFactory.init(packets);
 
         System.out.printf("Server running on %s:%s%n", serverInfo.getHost(), serverInfo.getPort());
     }

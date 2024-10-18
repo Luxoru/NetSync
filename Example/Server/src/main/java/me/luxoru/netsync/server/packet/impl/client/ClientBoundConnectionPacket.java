@@ -1,4 +1,4 @@
-package me.luxoru.netsync.commons.client;
+package me.luxoru.netsync.server.packet.impl.client;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

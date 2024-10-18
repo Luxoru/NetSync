@@ -3,7 +3,6 @@ package me.luxoru.netsync.commons;
 
 
 import com.google.common.base.Preconditions;
-import me.luxoru.netsync.commons.server.ServerBoundConnectionPacket;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -12,17 +11,19 @@ import java.util.Map;
 
 public class PacketFactory {
 
-    private static final Map<Integer, Class<? extends Packet>> packets = new HashMap<>();
+    private static Map<Integer, Class<? extends Packet>> packets = new HashMap<>();
+    private static boolean isInitialised;
 
-
-    static {
-
-        packets.put(1, ServerBoundConnectionPacket.class);
-
+    public static void init(Map<Integer, Class<? extends Packet>> packets){
+        PacketFactory.packets = packets;
+        isInitialised = true;
     }
+
+
 
     @SuppressWarnings("unchecked")
     public static <T extends Packet> T createPacket(int packetID, byte[] data){
+        if(!isInitialised)throw new IllegalStateException("PacketFactory not initialsied");
         Class<? extends Packet> clazz = packets.get(packetID);
 
         Preconditions.checkNotNull(clazz, "Packet doesnt exist with ID: "+packetID);

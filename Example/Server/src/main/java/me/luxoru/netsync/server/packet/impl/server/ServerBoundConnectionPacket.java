@@ -1,11 +1,6 @@
-package me.luxoru.netsync.commons.server;
+package me.luxoru.netsync.server.packet.impl.server;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import me.luxoru.netsync.commons.Packet;
-import me.luxoru.netsync.commons.utils.ArrayUtils;
-
-import java.net.InetSocketAddress;
 
 @Getter
 public class ServerBoundConnectionPacket extends ServerBoundPacket{

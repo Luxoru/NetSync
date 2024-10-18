@@ -2,8 +2,10 @@ package me.luxoru.netsync.client;
 
 import me.luxoru.netsync.client.packet.ClientBoundPacketHandler;
 import me.luxoru.netsync.client.packet.ClientPacketManager;
+import me.luxoru.netsync.commons.PacketFactory;
 import me.luxoru.netsync.commons.PacketSendable;
-import me.luxoru.netsync.commons.server.ServerBoundConnectionPacket;
+import me.luxoru.netsync.server.packet.impl.server.ServerBoundConnectionPacket;
+
 
 import java.net.InetSocketAddress;
 import java.util.Scanner;
@@ -26,6 +28,8 @@ public class Client {
         ClientPacketManager clientPacketManager = new ClientPacketManager("localhost", 8080,20, new ClientBoundPacketHandler(this));
 
         clientPacketManager.start();
+
+        PacketFactory.init(ClientPacketManager.getPackets());
 
         clientPacketManager.sendPacket(new PacketSendable(new ServerBoundConnectionPacket(), serverAddr));
 
