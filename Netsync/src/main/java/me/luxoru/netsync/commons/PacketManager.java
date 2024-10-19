@@ -73,7 +73,7 @@ public abstract class PacketManager extends Thread{
                     attemptToWritePackets();
                     continue;
                 }
-                boolean shouldRead = shouldRead(remoteAddress);//A client will need to detect whether this remote address is coming from the server.
+                boolean shouldRead = shouldRead(remoteAddress);
 
                 if(!shouldRead){
                     attemptToWritePackets();
