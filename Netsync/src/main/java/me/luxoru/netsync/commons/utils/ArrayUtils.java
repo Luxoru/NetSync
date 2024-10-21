@@ -9,22 +9,18 @@ public class ArrayUtils {
 
         T[] arr = (T[]) Array.newInstance(array.getClass().getComponentType(), to-start);
 
-        for(int i = start; i < to; i++){
-            arr[start-i] = array[i];
-        }
+        if (to - start >= 0) System.arraycopy(array, start, arr, 0, to - start);
 
         return arr;
     }
 
-    public static byte[] getFromRange(int start, int to, byte[] array){
+    public static byte[] getFromRange(int start, int end, byte[] array) {
 
-        byte[] arr = new byte[to-start];
+        byte[] result = new byte[end - start];
 
-        for(int i = start; i < to; i++){
-            arr[start-i] = array[i];
-        }
+        if (end - start >= 0) System.arraycopy(array, start, result, 0, end - start);
 
-        return arr;
+        return result;
     }
 
     public static byte[] getFrom(int start, byte[] array){
